@@ -5,8 +5,10 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/node_modules/node-addon-api",
-                "${workspaceFolder}/node_modules/addon-tools-raub/include",
-                "${LocalAppData}/node-gyp/Cache/22.14.0/include/node"
+                "${workspaceFolder}/node_modules/@node-3d/addon-tools/include",
+                "${workspaceFolder}/../../node_modules/node-addon-api",
+                "${workspaceFolder}/../../node_modules/@node-3d/addon-tools/include",
+                "${env:LOCALAPPDATA}/node-gyp/Cache/24.13.0/include/node"
             ],
             "defines": [
                 "UNICODE",

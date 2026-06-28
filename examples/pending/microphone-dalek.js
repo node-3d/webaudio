@@ -1,7 +1,9 @@
+import { AudioContext } from '..';
+
 /* eslint-disable */
 // 'use strict';
 
-// const { AudioContext } = require('..');
+// 
 
 // const makeDistortionCurve = amount => {
 // 	let k = typeof amount === 'number' ? amount : 50;
@@ -16,7 +18,6 @@
 // 	}
 // 	return curve;
 // };
-
 
 // (async () => { try {
 	

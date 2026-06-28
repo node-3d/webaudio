@@ -1,4 +1,4 @@
-name: Cpplint
+name: Lint
 defaults:
   run:
     shell: bash
@@ -12,8 +12,8 @@ on:
       - master
 
 jobs:
-  cpplint:
-    name: Cpplint
+  lint:
+    name: Lint
     runs-on: ubuntu-22.04
 
     steps:
@@ -32,15 +32,5 @@ jobs:
       - name: Install Modules
         run: npm ci
 
-      - name: Install Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
-
-      - name: Install Cpplint
-        run: pip install cpplint
-
-      - name: Run Cpplint
-        run: |
-          node -e "require('@node-3d/addon-tools').cpcpplint()"
-          cpplint --recursive ./src/cpp
+      - name: Run Lint
+        run: npm run lint

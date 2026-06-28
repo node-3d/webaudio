@@ -1,8 +1,9 @@
+import { AudioContext } from '..';
+
 /* eslint-disable */
 // 'use strict';
 
-// const { AudioContext } = require('..');
-
+// 
 
 // (async () => { try {
 	

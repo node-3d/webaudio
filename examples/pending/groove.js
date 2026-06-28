@@ -1,8 +1,9 @@
+import { AudioContext } from '..';
+
 /* eslint-disable */
 // 'use strict';
 
-// const { AudioContext } = require('..');
-
+// 
 
 // float note(int n, int octave = 0)
 // {
@@ -135,7 +136,6 @@
 
 // FastLowpass fastlp_a[2];
 // FastHighpass fasthp_c[2];
-
 
 // (async () => { try {
 	

@@ -1,18 +1,18 @@
 {
 	'variables': {
-		'bin': '<!(node -p "require(\'addon-tools-raub\').getBin()")',
-		'ls_include': '<!(node -p "require(\'deps-labsound-raub\').include")',
-		'ls_bin': '<!(node -p "require(\'deps-labsound-raub\').bin")',
+		'bin': '<!(node -e "import(\'@node-3d/addon-tools\').then((m) => m.printBin())")',
+		'ls_include': '<!(node -p "require(\'@node-3d/deps-labsound\').include")',
+		'ls_bin': '<!(node -p "require(\'@node-3d/deps-labsound\').bin")',
 	},
 	'targets': [{
 		'target_name': 'webaudio',
-		'includes': ['../node_modules/addon-tools-raub/utils/common.gypi'],
+		'includes': ['common.gypi'],
 		'sources': [
 			'cpp/bindings.cpp',
 		],
 		'include_dirs': [
 			'<(ls_include)',
-			'<!@(node -p "require(\'addon-tools-raub\').getInclude()")',
+			'<!@(node -e "import(\'@node-3d/addon-tools\').then((m) => m.printInclude())")',
 		],
 		'library_dirs': ['<(ls_bin)'],
 		'conditions': [
@@ -21,8 +21,8 @@
 				'cflags_cc': ['-w', '-frtti', '-fexceptions'],
 				'libraries': [
 					"-Wl,-rpath,'$$ORIGIN'",
-					"-Wl,-rpath,'$$ORIGIN/../node_modules/deps-labsound-raub/<(bin)'",
-					"-Wl,-rpath,'$$ORIGIN/../../deps-labsound-raub/<(bin)'",
+					"-Wl,-rpath,'$$ORIGIN/../node_modules/@node-3d/deps-labsound/<(bin)'",
+					"-Wl,-rpath,'$$ORIGIN/../../@node-3d/deps-labsound/<(bin)'",
 					'-lLabSound', '-llibnyquist', '-lasound',
 				],
 			}],
@@ -31,8 +31,8 @@
 				'cflags_cc': ['-w', '-frtti', '-fexceptions'],
 				'libraries': [
 					'-Wl,-rpath,@loader_path',
-					'-Wl,-rpath,@loader_path/../node_modules/deps-labsound-raub/<(bin)',
-					'-Wl,-rpath,@loader_path/../../deps-labsound-raub/<(bin)',
+					'-Wl,-rpath,@loader_path/../node_modules/@node-3d/deps-labsound/<(bin)',
+					'-Wl,-rpath,@loader_path/../../@node-3d/deps-labsound/<(bin)',
 					'-llibnyquist',
 					'-L<(ls_bin)',
 					'<(ls_bin)/LabSound',

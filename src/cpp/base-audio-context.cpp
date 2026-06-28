@@ -172,7 +172,7 @@ JS_IMPLEMENT_METHOD(BaseAudioContext, decodeAudioData) { THIS_CHECK;
 	Napi::Object context = info.This().As<Napi::Object>();
 	
 	int len;
-	uint8_t *data = getArrayData(env, audioData, &len);
+	const uint8_t *data = getArrayData(env, audioData, &len);
 	
 	std::vector<uint8_t> dataVec(data, data + len);
 	
