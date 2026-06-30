@@ -37,7 +37,7 @@ jobs:
         run: npm ci
 
       - name: Build Current Binary
-        run: npm run build
+        run: npm run build:rebuild
 
       - name: Audio Device - Unix
         if: matrix.os != 'windows-2022'
@@ -59,4 +59,4 @@ jobs:
           C:\Scream\Install\helpers\devcon install Scream.inf *Scream
 
       - name: Run Unit Tests
-        run: npm test
+        run: npm run test:ci
