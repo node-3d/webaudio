@@ -12,8 +12,10 @@ const { AudioScheduledSourceNode } = native;
 
 inherits(AudioScheduledSourceNode, AudioNode);
 
-type TAudioScheduledSourceNodeConstructor =
-	TNativeConstructor<[ctx: TBaseAudioContext, node: TNativeExternal], TAudioScheduledSourceNode>;
+type TAudioScheduledSourceNodeConstructor = TNativeConstructor<
+	[ctx: TBaseAudioContext, node: TNativeExternal],
+	TAudioScheduledSourceNode
+>;
 
 const JsAudioScheduledSourceNode = function JsAudioScheduledSourceNode(
 	this: TAudioScheduledSourceNode,
@@ -24,13 +26,13 @@ const JsAudioScheduledSourceNode = function JsAudioScheduledSourceNode(
 } as unknown as TAudioScheduledSourceNodeConstructor;
 
 JsAudioScheduledSourceNode.prototype = {
-	
-	[inspect.custom](): string { return this.toString(); },
-	
+	[inspect.custom](): string {
+		return this.toString();
+	},
+
 	toString(): string {
 		return 'AudioScheduledSourceNode {}';
 	},
-	
 } as unknown as TAudioScheduledSourceNode;
 
 inherits(JsAudioScheduledSourceNode, AudioScheduledSourceNode);

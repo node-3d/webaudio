@@ -3,10 +3,10 @@ import { AudioContext } from '..';
 /* eslint-disable */
 // 'use strict';
 
-// 
+//
 
 // (async () => { try {
-	
+
 //         auto context = lab::MakeRealtimeAudioContext();
 
 //         std::shared_ptr<AudioBus> kick = MakeBusFromFile("samples/kick.wav", false);
@@ -20,11 +20,11 @@ import { AudioContext } from '..';
 
 //         {
 //             ContextRenderLock r(context.get(), "PeakCompressorApp");
-            
+
 //             filter = std::make_shared<BiquadFilterNode>();
 //             filter->setType(BiquadFilterNode::LOWPASS);
 //             filter->frequency()->setValue(2800.0f);
-            
+
 //             peakComp = std::make_shared<PeakCompNode>();
 //             context->connect(peakComp, filter, 0, 0);
 //             context->connect(context->destination(), peakComp, 0, 0);
@@ -43,13 +43,13 @@ import { AudioContext } from '..';
 //             for (int bar = 0; bar < 2; bar++)
 //             {
 //                 float time = startTime + bar * 8 * eighthNoteTime;
-                
+
 //                 schedule_node(kick, filter, time);
 //                 schedule_node(kick, filter, time + 4 * eighthNoteTime);
 
 //                 schedule_node(snare, filter, time + 2 * eighthNoteTime);
 //                 schedule_node(snare, filter, time + 6 * eighthNoteTime);
-                
+
 //                 for (int i = 0; i < 8; ++i)
 //                 {
 //                     schedule_node(hihat, filter, time + i * eighthNoteTime);
@@ -57,7 +57,6 @@ import { AudioContext } from '..';
 //             }
 //         }
 
-        
 //         std::this_thread::sleep_for(std::chrono::seconds(1));
 
 //         // Scheduled nodes need to be explicitly cleaned up before the context
@@ -67,8 +66,7 @@ import { AudioContext } from '..';
 //         }
 
 //         context.reset();
-	
-// 	console.log('DONE');
-	
-// } catch (e) { console.error(e); } })();
 
+// 	console.log('DONE');
+
+// } catch (e) { console.error(e); } })();

@@ -9,9 +9,14 @@ export type TAudioEvent = Readonly<{
 	[key: string]: unknown;
 }>;
 
-export type TAudioEventCallback<T extends TAudioEvent = TAudioEvent> = (event: T) => boolean | undefined;
+export type TAudioEventCallback<T extends TAudioEvent = TAudioEvent> = (
+	event: T,
+) => boolean | undefined;
 export type TAudioEventCallbackList<T extends TAudioEvent = TAudioEvent> =
-	TAudioEventCallback<T> | readonly TAudioEventCallback<T>[] | null | undefined;
+	| TAudioEventCallback<T>
+	| readonly TAudioEventCallback<T>[]
+	| null
+	| undefined;
 
 export type TAudioContextState = 'closed' | 'interrupted' | 'running' | 'suspended';
 export type TChannelCountMode = 'clamped-max' | 'explicit' | 'max';
@@ -21,14 +26,15 @@ export type TPanningModel = 'HRTF' | 'equalpower';
 export type TOscillatorType = 'custom' | 'sawtooth' | 'sine' | 'square' | 'triangle';
 
 export type TNativeExternal = object & { readonly __nativeExternal: unique symbol };
-export type TNativeConstructor<TArgs extends readonly unknown[], TInstance extends object> =
-{
+export type TNativeConstructor<TArgs extends readonly unknown[], TInstance extends object> = {
 	prototype: TInstance;
 	new (...args: TArgs): TInstance;
 };
 
-export type TNativeEs5Constructor<TArgs extends readonly unknown[], TInstance extends object> =
-	TNativeConstructor<TArgs, TInstance> & ((...args: TArgs) => TInstance);
+export type TNativeEs5Constructor<
+	TArgs extends readonly unknown[],
+	TInstance extends object,
+> = TNativeConstructor<TArgs, TInstance> & ((...args: TArgs) => TInstance);
 
 export type TAudioBufferData = ArrayLike<number> & object;
 export type TAudioBufferOptions = Readonly<{
@@ -73,7 +79,11 @@ export type TAudioNode = TAudioObject & {
 	readonly numberOfOutputs: number;
 	connect: (destination: TAudioNode | TAudioParam, output?: number, input?: number) => void;
 	diagnose: () => void;
-	disconnect: (destination?: TAudioNode | TAudioParam | number, output?: number, input?: number) => void;
+	disconnect: (
+		destination?: TAudioNode | TAudioParam | number,
+		output?: number,
+		input?: number,
+	) => void;
 	onended: TAudioEventCallbackList;
 	onerror: TAudioEventCallbackList;
 };
@@ -83,8 +93,16 @@ export type TAudioBuffer = TAudioObject & {
 	readonly length: number;
 	readonly numberOfChannels: number;
 	readonly sampleRate: number;
-	copyFromChannel: (destination: TAudioBufferData, channelNumber: number, startInChannel: number) => void;
-	copyToChannel: (source: TAudioBufferData, channelNumber: number, startInChannel: number) => void;
+	copyFromChannel: (
+		destination: TAudioBufferData,
+		channelNumber: number,
+		startInChannel: number,
+	) => void;
+	copyToChannel: (
+		source: TAudioBufferData,
+		channelNumber: number,
+		startInChannel: number,
+	) => void;
 	getChannelData: (channelIndex: number) => void;
 };
 
@@ -98,7 +116,14 @@ export type TAudioListener = TAudioObject & {
 	readonly upX: TAudioParam;
 	readonly upY: TAudioParam;
 	readonly upZ: TAudioParam;
-	setOrientation: (x: number, y: number, z: number, xUp: number, yUp: number, zUp: number) => void;
+	setOrientation: (
+		x: number,
+		y: number,
+		z: number,
+		xUp: number,
+		yUp: number,
+		zUp: number,
+	) => void;
 	setPosition: (x: number, y: number, z: number) => void;
 };
 
@@ -203,28 +228,72 @@ export type TOscillatorNode = TAudioScheduledSourceNode & {
 };
 
 export type TNative = Readonly<{
-	AnalyserNode: TNativeEs5Constructor<[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions], TAnalyserNode>;
-	AudioBuffer: TNativeEs5Constructor<[context: TBaseAudioContext, source?: TNativeExternal | TAudioBufferOptions], TAudioBuffer>;
-	AudioBufferSourceNode: TNativeEs5Constructor<[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions], TAudioBufferSourceNode>;
+	AnalyserNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions],
+		TAnalyserNode
+	>;
+	AudioBuffer: TNativeEs5Constructor<
+		[context: TBaseAudioContext, source?: TNativeExternal | TAudioBufferOptions],
+		TAudioBuffer
+	>;
+	AudioBufferSourceNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions],
+		TAudioBufferSourceNode
+	>;
 	AudioContext: TNativeEs5Constructor<[sampleRate?: number], TAudioContext>;
-	AudioDestinationNode: TNativeEs5Constructor<[context: TBaseAudioContext, node: TNativeExternal], TAudioDestinationNode>;
-	AudioListener: TNativeEs5Constructor<[context: TBaseAudioContext, listener: TNativeExternal, paramCtor: TAudioParamConstructor], TAudioListener>;
-	AudioNode: TNativeEs5Constructor<[context: TBaseAudioContext, node: TNativeExternal], TAudioNode>;
+	AudioDestinationNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, node: TNativeExternal],
+		TAudioDestinationNode
+	>;
+	AudioListener: TNativeEs5Constructor<
+		[context: TBaseAudioContext, listener: TNativeExternal, paramCtor: TAudioParamConstructor],
+		TAudioListener
+	>;
+	AudioNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, node: TNativeExternal],
+		TAudioNode
+	>;
 	AudioParam: TAudioParamConstructor;
-	AudioScheduledSourceNode: TNativeEs5Constructor<[context: TBaseAudioContext, node: TNativeExternal], TAudioScheduledSourceNode>;
-	BaseAudioContext: TNativeEs5Constructor<[context: TNativeExternal, sampleRate: number], TBaseAudioContext> & {
+	AudioScheduledSourceNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, node: TNativeExternal],
+		TAudioScheduledSourceNode
+	>;
+	BaseAudioContext: TNativeEs5Constructor<
+		[context: TNativeExternal, sampleRate: number],
+		TBaseAudioContext
+	> & {
 		hrtf: string;
 	};
-	BiquadFilterNode: TNativeEs5Constructor<[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions], TBiquadFilterNode>;
-	ConvolverNode: TNativeEs5Constructor<[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions], TConvolverNode>;
-	DelayNode: TNativeEs5Constructor<[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions], TDelayNode>;
-	GainNode: TNativeEs5Constructor<[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions], TGainNode>;
-	OscillatorNode: TNativeEs5Constructor<[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions], TOscillatorNode>;
-	PannerNode: TNativeEs5Constructor<[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions], TPannerNode>;
+	BiquadFilterNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions],
+		TBiquadFilterNode
+	>;
+	ConvolverNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions],
+		TConvolverNode
+	>;
+	DelayNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions],
+		TDelayNode
+	>;
+	GainNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions],
+		TGainNode
+	>;
+	OscillatorNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions],
+		TOscillatorNode
+	>;
+	PannerNode: TNativeEs5Constructor<
+		[context: TBaseAudioContext, paramCtor: TAudioParamConstructor, opts: TAudioNodeOptions],
+		TPannerNode
+	>;
 }>;
 
-export type TAudioParamConstructor =
-	TNativeConstructor<[context: TBaseAudioContext, param: TNativeExternal], TNativeAudioParam>;
+export type TAudioParamConstructor = TNativeConstructor<
+	[context: TBaseAudioContext, param: TNativeExternal],
+	TNativeAudioParam
+>;
 
 const loadAddon = createRequire(import.meta.url);
 

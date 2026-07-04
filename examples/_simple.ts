@@ -6,7 +6,9 @@ const context = new AudioContext();
 
 const clip = await readFile(`${import.meta.dirname}/samples/trainrolling.wav`);
 
-const musicClip = await new Promise<TAudioBuffer>((res) => { context.decodeAudioData(clip, (b) => res(b)); });
+const musicClip = await new Promise<TAudioBuffer>((res) => {
+	context.decodeAudioData(clip, (b) => res(b));
+});
 
 const oscillator = context.createOscillator();
 
@@ -15,10 +17,9 @@ gain.gain.value = 0.0625;
 
 const musicClipNode = context.createBufferSource();
 
-musicClipNode.on(
-	'ended',
-	() => { console.log('.on("ended"): Track "trainrolling.wav" ended.'); }
-);
+musicClipNode.on('ended', () => {
+	console.log('.on("ended"): Track "trainrolling.wav" ended.');
+});
 musicClipNode.on('ended', () => {
 	console.log('.onended: Track "trainrolling.wav" ended.');
 });
@@ -38,12 +39,13 @@ gain.connect(context.destination);
 
 oscillator.frequency.value = 440;
 
-
 oscillator.type = 'sine';
 
 oscillator.start(0);
 
 // 6 sec
-await new Promise((res) => { setTimeout(res, 6000); });
+await new Promise((res) => {
+	setTimeout(res, 6000);
+});
 
 console.log('DONE');

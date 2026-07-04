@@ -1,6 +1,5 @@
 import { AudioContext } from '@node-3d/webaudio';
 
-
 const context = new AudioContext();
 
 const osc = context.createOscillator();
@@ -89,6 +88,8 @@ for (let i = 0; i < filterFrequencies.length; i++) {
 filterSum.connect(context.destination);
 
 // 6 sec
-await new Promise((res) => { setTimeout(res, 6000); });
+await new Promise((res) => {
+	setTimeout(res, 6000);
+});
 
 console.log('DONE');

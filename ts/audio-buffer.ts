@@ -7,9 +7,11 @@ const { AudioBuffer } = native;
 inherits(AudioBuffer, Emitter);
 
 class JsAudioBuffer extends AudioBuffer {
-	public [inspect.custom](): string  { return this.toString(); }
-	
-	public toString(): string  {
+	public [inspect.custom](): string {
+		return this.toString();
+	}
+
+	public toString(): string {
 		return 'AudioBuffer {}';
 	}
 }

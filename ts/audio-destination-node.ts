@@ -12,8 +12,10 @@ const { AudioDestinationNode } = native;
 
 inherits(AudioDestinationNode, AudioNode);
 
-type TAudioDestinationNodeConstructor =
-	TNativeConstructor<[ctx: TBaseAudioContext, node: TNativeExternal], TAudioDestinationNode>;
+type TAudioDestinationNodeConstructor = TNativeConstructor<
+	[ctx: TBaseAudioContext, node: TNativeExternal],
+	TAudioDestinationNode
+>;
 
 const JsAudioDestinationNode = function JsAudioDestinationNode(
 	this: TAudioDestinationNode,
@@ -24,13 +26,13 @@ const JsAudioDestinationNode = function JsAudioDestinationNode(
 } as unknown as TAudioDestinationNodeConstructor;
 
 JsAudioDestinationNode.prototype = {
-	
-	[inspect.custom](): string { return this.toString(); },
-	
+	[inspect.custom](): string {
+		return this.toString();
+	},
+
 	toString(): string {
 		return 'AudioDestinationNode {}';
 	},
-	
 } as unknown as TAudioDestinationNode;
 
 inherits(JsAudioDestinationNode, AudioDestinationNode);

@@ -1,3 +1,4 @@
+// oxlint-disable typescript/method-signature-style
 import { inspect, inherits } from 'node:util';
 import { hrtf } from '@node-3d/deps-labsound';
 import Emitter from 'node:events';
@@ -34,10 +35,12 @@ type TNativeBaseAudioContext = TBaseAudioContext & {
 	) => void;
 };
 
-type TNativeBaseAudioContextConstructor =
-	TNativeConstructor<[ctx: TNativeExternal, sampleRate?: number], TNativeBaseAudioContext> & {
-		hrtf: string;
-	};
+type TNativeBaseAudioContextConstructor = TNativeConstructor<
+	[ctx: TNativeExternal, sampleRate?: number],
+	TNativeBaseAudioContext
+> & {
+	hrtf: string;
+};
 
 const BaseAudioContext = native.BaseAudioContext as unknown as TNativeBaseAudioContextConstructor;
 
@@ -70,8 +73,10 @@ export type TJsBaseAudioContext = TBaseAudioContext & {
 	createWaveShaper: (opts?: TAudioNodeOptions) => object;
 };
 
-type TBaseAudioContextConstructor =
-	TNativeConstructor<[ctx: TNativeExternal, sampleRate?: number], TJsBaseAudioContext>;
+type TBaseAudioContextConstructor = TNativeConstructor<
+	[ctx: TNativeExternal, sampleRate?: number],
+	TJsBaseAudioContext
+>;
 
 const JsBaseAudioContext = function JsBaseAudioContext(
 	this: TJsBaseAudioContext,
@@ -82,26 +87,33 @@ const JsBaseAudioContext = function JsBaseAudioContext(
 	this._initListener(AudioDestinationNode, AudioListener, sampleRate);
 } as unknown as TBaseAudioContextConstructor;
 
-const baseAudioContextPrototype: Partial<TJsBaseAudioContext> & ThisType<TJsBaseAudioContext> & {
-	[inspect.custom](): string;
-	toString(): string;
-} = {
-	get onerror(): TAudioEventCallbackList { return this.listeners('error') as TAudioEventCallback[]; },
+const baseAudioContextPrototype: Partial<TJsBaseAudioContext> &
+	ThisType<TJsBaseAudioContext> & {
+		[inspect.custom](): string;
+		toString(): string;
+	} = {
+	get onerror(): TAudioEventCallbackList {
+		return this.listeners('error') as TAudioEventCallback[];
+	},
 	set onerror(cb: TAudioEventCallbackList) {
 		setEventCallbacks(this, 'error', cb);
 	},
-	
-	get onstatechange(): TAudioEventCallbackList { return this.listeners('statechange') as TAudioEventCallback[]; },
+
+	get onstatechange(): TAudioEventCallbackList {
+		return this.listeners('statechange') as TAudioEventCallback[];
+	},
 	set onstatechange(cb: TAudioEventCallbackList) {
 		setEventCallbacks(this, 'statechange', cb);
 	},
-	
-	[inspect.custom](): string { return this.toString(); },
-	
+
+	[inspect.custom](): string {
+		return this.toString();
+	},
+
 	toString(): string {
 		return 'BaseAudioContext {}';
 	},
-	
+
 	decodeAudioData(audioData: Buffer, successCallback: (buffer: TAudioBuffer) => void): void {
 		BaseAudioContext.prototype.decodeAudioData.call(
 			this,
@@ -110,75 +122,75 @@ const baseAudioContextPrototype: Partial<TJsBaseAudioContext> & ThisType<TJsBase
 			AudioBuffer,
 		);
 	},
-	
+
 	createAnalyser(opts: TAudioNodeOptions = {}) {
 		return new nodes.AnalyserNode(this, opts);
 	},
-	
+
 	createBiquadFilter(opts: TAudioNodeOptions = {}) {
 		return new nodes.BiquadFilterNode(this, opts);
 	},
-	
+
 	createBuffer(opts: TAudioNodeOptions = {}) {
 		return new AudioBuffer(this, opts);
 	},
-	
+
 	createBufferSource(opts: TAudioNodeOptions = {}) {
 		return new nodes.AudioBufferSourceNode(this, opts);
 	},
-	
+
 	createChannelMerger(opts: TAudioNodeOptions = {}) {
 		return new nodes.ChannelMergerNode(this, opts);
 	},
-	
+
 	createChannelSplitter(opts: TAudioNodeOptions = {}) {
 		return new nodes.ChannelSplitterNode(this, opts);
 	},
-	
+
 	createConstantSource(opts: TAudioNodeOptions = {}) {
 		return new nodes.ConstantSourceNode(this, opts);
 	},
-	
+
 	createConvolver(opts: TAudioNodeOptions = {}) {
 		return new nodes.ConvolverNode(this, opts);
 	},
-	
+
 	createDelay(maxDelayTime = 1) {
 		return new nodes.DelayNode(this, { maxDelayTime });
 	},
-	
+
 	createDynamicsCompressor(opts: TAudioNodeOptions = {}) {
 		return new nodes.DynamicsCompressorNode(this, opts);
 	},
-	
+
 	createGain(opts: TAudioNodeOptions = {}) {
 		return new nodes.GainNode(this, opts);
 	},
-	
+
 	createIIRFilter(opts: TAudioNodeOptions = {}) {
 		return new nodes.IIRFilterNode(this, opts);
 	},
-	
+
 	createOscillator(opts: TAudioNodeOptions = {}) {
 		return new nodes.OscillatorNode(this, opts);
 	},
-	
+
 	createPanner(opts: TAudioNodeOptions = {}) {
 		return new nodes.PannerNode(this, opts);
 	},
-	
+
 	createPeriodicWave(opts: TAudioNodeOptions = {}) {
 		return new nodes.PeriodicWaveNode(this, opts);
 	},
-	
+
 	createScriptProcessor(opts: TAudioNodeOptions = {}) {
 		return new nodes.ScriptProcessorNode(this, opts);
 	},
-	
+
 	createStereoPanner(opts: TAudioNodeOptions = {}) {
 		return new nodes.StereoPannerNode(this, opts);
 	},
-	
+
 	createWaveShaper(opts: TAudioNodeOptions = {}) {
 		return new nodes.WaveShaperNode(this, opts);
 	},

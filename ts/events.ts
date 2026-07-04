@@ -10,12 +10,12 @@ export const setEventCallbacks = (
 		emitter.removeAllListeners(eventName);
 		return;
 	}
-	
+
 	if (typeof callbacks === 'function') {
 		emitter.on(eventName, callbacks);
 		return;
 	}
-	
+
 	for (const callback of callbacks) {
 		emitter.on(eventName, callback);
 	}

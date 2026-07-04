@@ -1,6 +1,5 @@
 import { AudioContext } from '@node-3d/webaudio';
 
-
 const context = new AudioContext();
 
 const modulator = context.createOscillator();
@@ -28,6 +27,8 @@ osc.connect(gain);
 gain.connect(context.destination);
 
 // 30 sec
-await new Promise((res) => { setTimeout(res, 30000); });
+await new Promise((res) => {
+	setTimeout(res, 30000);
+});
 
 console.log('DONE');

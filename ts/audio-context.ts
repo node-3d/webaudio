@@ -16,10 +16,12 @@ class JsAudioContext extends AudioContext {
 			super(opts.sampleRate);
 		}
 	}
-	
-	public [inspect.custom](): string  { return this.toString(); }
-	
-	public toString(): string  {
+
+	public [inspect.custom](): string {
+		return this.toString();
+	}
+
+	public toString(): string {
 		return 'AudioContext {}';
 	}
 }

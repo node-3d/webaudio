@@ -9,12 +9,12 @@ const context = new AudioContext();
 const cardiod = await readFile(`${cwd}/samples/cardiod.wav`);
 const voice = await readFile(`${cwd}/samples/voice.ogg`);
 
-const impulseResponseClip = await new Promise<TAudioBuffer>(
-	(res) => { context.decodeAudioData(cardiod, (b) => res(b)); }
-);
-const voiceClip = await new Promise<TAudioBuffer>(
-	(res) => { context.decodeAudioData(voice, (b) => res(b)); }
-);
+const impulseResponseClip = await new Promise<TAudioBuffer>((res) => {
+	context.decodeAudioData(cardiod, (b) => res(b));
+});
+const voiceClip = await new Promise<TAudioBuffer>((res) => {
+	context.decodeAudioData(voice, (b) => res(b));
+});
 
 const outputGain = context.createGain();
 
@@ -41,6 +41,8 @@ voiceNode.start(0);
 outputGain.connect(context.destination);
 
 // 30 sec
-await new Promise((res) => { setTimeout(res, 30000); });
+await new Promise((res) => {
+	setTimeout(res, 30000);
+});
 
 console.log('DONE');

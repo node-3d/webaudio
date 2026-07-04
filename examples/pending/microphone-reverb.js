@@ -3,10 +3,10 @@ import { AudioContext } from '..';
 /* eslint-disable */
 // 'use strict';
 
-// 
+//
 
 // (async () => { try {
-	
+
 //         auto context = lab::MakeRealtimeAudioContext();
 
 //         {
@@ -47,8 +47,7 @@ import { AudioContext } from '..';
 
 //             context.reset(); // lifetime issues
 //         }
-	
-// 	console.log('DONE');
-	
-// } catch (e) { console.error(e); } })();
 
+// 	console.log('DONE');
+
+// } catch (e) { console.error(e); } })();

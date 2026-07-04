@@ -6,7 +6,9 @@ const context = new AudioContext();
 
 const cello = await readFile(`${import.meta.dirname}/samples/voice.ogg`);
 
-const audioClip = await new Promise<TAudioBuffer>((res) => { context.decodeAudioData(cello, (b) => res(b)); });
+const audioClip = await new Promise<TAudioBuffer>((res) => {
+	context.decodeAudioData(cello, (b) => res(b));
+});
 const audioClipNode = context.createBufferSource();
 audioClipNode.buffer = audioClip;
 
@@ -19,7 +21,8 @@ audioClipNode.connect(pingping);
 audioClipNode.start(0);
 
 // 20 sec
-await new Promise((res) => { setTimeout(res, 20000); });
+await new Promise((res) => {
+	setTimeout(res, 20000);
+});
 
 console.log('DONE');
-	
