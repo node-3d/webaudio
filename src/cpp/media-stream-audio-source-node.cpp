@@ -2,38 +2,32 @@
 #include "media-stream-audio-source-node.hpp"
 
 
-MediaStreamAudioSourceNode::MediaStreamAudioSourceNode() :
-AudioNode() {
-	
+MediaStreamAudioSourceNode::MediaStreamAudioSourceNode() : AudioNode() {
 	_isDestroyed = false;
-	
 }
 
 
 MediaStreamAudioSourceNode::~MediaStreamAudioSourceNode() {
-	
 	_destroy();
-	
 }
 
 
-void MediaStreamAudioSourceNode::_destroy() { DES_CHECK;
-	
+void MediaStreamAudioSourceNode::_destroy() {
+	DES_CHECK;
+
 	_isDestroyed = true;
-	
+
 	AudioNode::_destroy();
-	
 }
 
 
 // ------ Methods and props
 
 
+JS_IMPLEMENT_GETTER(MediaStreamAudioSourceNode, mediaStream) {
+	THIS_CHECK;
 
-JS_IMPLEMENT_GETTER(MediaStreamAudioSourceNode, mediaStream) { THIS_CHECK;
-	
 	RET_VALUE(_mediaStream.Value());
-	
 }
 
 
@@ -43,14 +37,12 @@ IMPLEMENT_ES5_CLASS(MediaStreamAudioSourceNode);
 
 
 void MediaStreamAudioSourceNode::init(Napi::Env env, Napi::Object exports) {
-	
 	Napi::Function ctor = wrap(env);
 	JS_ASSIGN_METHOD(destroy);
 	JS_ASSIGN_GETTER(mediaStream);
 	JS_ASSIGN_GETTER(isDestroyed);
-	
+
 	exports.Set("MediaStreamAudioSourceNode", ctor);
-	
 }
 
 
@@ -60,33 +52,29 @@ bool MediaStreamAudioSourceNode::isMediaStreamAudioSourceNode(Napi::Object obj) 
 
 
 Napi::Object MediaStreamAudioSourceNode::getNew() {
-	
 	Napi::Function ctor = Nan::New(_constructor);
 	// Napi::Value argv[] = { /* arg1, arg2, ... */ };
-	return Nan::NewInstance(ctor, 0/*argc*/, nullptr/*argv*/).ToLocalChecked();
-	
+	return Nan::NewInstance(ctor, 0 /*argc*/, nullptr /*argv*/).ToLocalChecked();
 }
 
 
-MediaStreamAudioSourceNode::MediaStreamAudioSourceNode(const Napi::CallbackInfo &info):
-Napi::ObjectWrap<MediaStreamAudioSourceNode>(info) {
-	
+MediaStreamAudioSourceNode::MediaStreamAudioSourceNode(const Napi::CallbackInfo &info)
+    : Napi::ObjectWrap<MediaStreamAudioSourceNode>(info) {
 	MediaStreamAudioSourceNode *mediaStreamAudioSourceNode = new MediaStreamAudioSourceNode();
-	
 }
 
 
-JS_IMPLEMENT_METHOD(MediaStreamAudioSourceNode, destroy) { THIS_CHECK;
-	
+JS_IMPLEMENT_METHOD(MediaStreamAudioSourceNode, destroy) {
+	THIS_CHECK;
+
 	emit("destroy");
-	
+
 	_destroy();
-	
 }
 
 
-JS_IMPLEMENT_GETTER(MediaStreamAudioSourceNode, isDestroyed) { NAPI_ENV;
-	
+JS_IMPLEMENT_GETTER(MediaStreamAudioSourceNode, isDestroyed) {
+	NAPI_ENV;
+
 	RET_BOOL(_isDestroyed);
-	
 }

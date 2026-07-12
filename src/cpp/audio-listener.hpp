@@ -4,16 +4,17 @@
 
 
 class AudioListener : public CommonListener {
-DECLARE_ES5_CLASS(AudioListener, AudioListener);
-public:
+	DECLARE_ES5_CLASS(AudioListener, AudioListener);
+
+  public:
 	static void init(Napi::Env env, Napi::Object exports);
-	
+
 	explicit AudioListener(const Napi::CallbackInfo &info);
 	~AudioListener();
-	
+
 	void _destroy();
-	
-private:
+
+  private:
 	Napi::ObjectReference _positionX;
 	Napi::ObjectReference _positionY;
 	Napi::ObjectReference _positionZ;
@@ -23,11 +24,11 @@ private:
 	Napi::ObjectReference _upX;
 	Napi::ObjectReference _upY;
 	Napi::ObjectReference _upZ;
-	
+
 	JS_DECLARE_METHOD(AudioListener, destroy);
 	JS_DECLARE_METHOD(AudioListener, setPosition);
 	JS_DECLARE_METHOD(AudioListener, setOrientation);
-	
+
 	JS_DECLARE_GETTER(AudioListener, positionX);
 	JS_DECLARE_GETTER(AudioListener, positionY);
 	JS_DECLARE_GETTER(AudioListener, positionZ);

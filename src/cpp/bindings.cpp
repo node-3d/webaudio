@@ -35,28 +35,28 @@
 
 Napi::Object initModule(Napi::Env env, Napi::Object exports) {
 	log_set_level(LOGLEVEL_WARN);
-	
+
 	BaseAudioContext::init(env, exports);
 	AudioContext::init(env, exports);
 	// OfflineAudioContext::init(env, exports);
-	
+
 	AudioBuffer::init(env, exports);
 	AudioListener::init(env, exports);
-	
+
 	AudioParam::init(env, exports);
 	AudioSetting::init(env, exports);
-	
+
 	// PeriodicWave::init(env, exports);
 	// OfflineAudioCompletionEvent::init(env, exports);
-	
+
 	AudioNode::init(env, exports);
-	
+
 	AudioDestinationNode::init(env, exports);
 	AudioScheduledSourceNode::init(env, exports);
-	
+
 	AnalyserNode::init(env, exports);
 	AudioBufferSourceNode::init(env, exports);
-	
+
 	BiquadFilterNode::init(env, exports);
 	// ChannelMergerNode::init(env, exports);
 	// ChannelSplitterNode::init(env, exports);
@@ -74,9 +74,8 @@ Napi::Object initModule(Napi::Env env, Napi::Object exports) {
 	// ScriptProcessorNode::init(env, exports);
 	// StereoPannerNode::init(env, exports);
 	// WaveShaperNode::init(env, exports);
-	
+
 	return exports;
-	
 }
 
 
