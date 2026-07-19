@@ -11,20 +11,7 @@ This is a part of [Node3D](https://github.com/node-3d) project.
 npm install @node-3d/webaudio
 ```
 
-## Binary Origin
 
-Release archives are built by this repository's public GitHub Actions workflows.
-
-Attestations: https://github.com/node-3d/webaudio/attestations
-
-To verify a downloaded archive:
-
-```bash
-gh release download <tag> -R node-3d/webaudio -p <platform>.gz
-gh attestation verify <platform>.gz -R node-3d/webaudio
-```
-
-> This addon is ABI-compatible across Node.js versions. **There is no compilation** during `npm install`.
 
 
 **Node.js** addon implementing the
@@ -55,3 +42,18 @@ Currently exported classes:
 * `AudioScheduledSourceNode`
 
 In examples directory, currently working examples are prepended with `_`.
+
+## Binary Origin
+
+Release archives are built by this repository's public GitHub Actions workflows.
+
+Attestations: https://github.com/node-3d/webaudio/attestations
+
+To verify a downloaded archive:
+
+```bash
+gh release download <tag> -R node-3d/webaudio -p <platform>.gz
+gh attestation verify <platform>.gz -R node-3d/webaudio
+```
+
+> This addon is ABI-compatible across Node.js versions. **There is no compilation** during `npm install`.
