@@ -38,8 +38,8 @@
 		"lint:oxlint": "oxlint .",
 		"build:ci": "rslib build",
 		"build:watch": "rslib build --watch",
-		"lint:ts": "tsgo -p tsconfig.json --noEmit",
-		"prepare": "npm run build:ci",
+		"lint:ts": "tsc -p tsconfig.json --noEmit",
+		"prepack": "npm run build:ci",
 		"format:src": "node -e \"import('@node-3d/addon-tools').then((m) => m.cpclangformat())\" && node -e \"const { readdirSync } = require('node:fs'); const { execFileSync } = require('node:child_process'); const { clangFormatPath } = require('clang-format-node'); const files = readdirSync('src/cpp').filter((file) => /\\.(?:cpp|hpp)$/.test(file)).map((file) => 'src/cpp/' + file); execFileSync(clangFormatPath, ['-i', ...files], { stdio: 'inherit' });\"",
 		"format:src:ci": "node -e \"import('@node-3d/addon-tools').then((m) => m.cpclangformat())\" && node -e \"const { readdirSync } = require('node:fs'); const { execFileSync } = require('node:child_process'); const { clangFormatPath } = require('clang-format-node'); const files = readdirSync('src/cpp').filter((file) => /\\.(?:cpp|hpp)$/.test(file)).map((file) => 'src/cpp/' + file); execFileSync(clangFormatPath, ['--dry-run', '--Werror', ...files], { stdio: 'inherit' });\"",
 		"format:ts": "oxfmt -c ./oxfmt.config.ts --no-error-on-unmatched-pattern \"**/*.{js,jsx,ts,tsx}\"",
@@ -50,9 +50,9 @@
 		"url": "git+https://github.com/node-3d/webaudio.git"
 	},
 	"dependencies": {
-		"@node-3d/addon-tools": "^10.0.0",
-		"@node-3d/deps-labsound": "^7.0.0",
-		"@node-3d/segfault": "^4.0.0"
+		"@node-3d/addon-tools": "~10.0.1",
+		"@node-3d/deps-labsound": "~7.0.0",
+		"@node-3d/segfault": "~4.0.0"
 	},
 	"devDependencies": {
 		"@types/node": "24.13.2",
@@ -60,9 +60,8 @@
 		"oxlint": "1.72.0",
 		"tslib": "2.8.1",
 		"@rslib/core": "0.23.2",
-		"@typescript/native-preview": "7.0.0-dev.20260704.1",
 		"oxfmt": "0.57.0",
-		"typescript": "6.0.3",
+		"typescript": "7.0.2",
 		"clang-format-node": "3.0.7"
 	},
 	"type": "module",
