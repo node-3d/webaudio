@@ -86,6 +86,10 @@ jobs:
           ARCHFLAGS: ${{ matrix.archflags }}
         run: npm run build:rebuild
 
+      - name: Build TypeScript Distribution
+        if: matrix.audio_runtime
+        run: npm run build:ci
+
       - name: Audio Device - Unix
         if: matrix.audio_runtime && !startsWith(matrix.target, 'windows-')
         uses: LABSN/sound-ci-helpers@v1
