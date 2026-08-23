@@ -29,8 +29,8 @@
 	},
 	"scripts": {
 		"postinstall": "node install.js",
-		"build:rebuild": "cd src && node-gyp rebuild -j max --silent && node -e \"import('@node-3d/addon-tools').then((m) => m.cpbin('webaudio'))\"",
-		"build:compile": "cd src && node-gyp build -j max --silent && node -e \"import('@node-3d/addon-tools').then((m) => m.cpbin('webaudio'))\"",
+		"build:rebuild": "cd src && node-gyp rebuild -j max && node -e \"import('@node-3d/addon-tools').then((m) => m.cpbin('webaudio'))\"",
+		"build:compile": "cd src && node-gyp build -j max && node -e \"import('@node-3d/addon-tools').then((m) => m.cpbin('webaudio'))\"",
 		"test:watch": "node --test --watch \"ts/**/*.test.ts\"",
 		"test:ci": "node --test \"ts/**/*.test.ts\"",
 		"lint:all": "npm run lint:gypi && npm run lint:ts && npm run lint:oxlint",
