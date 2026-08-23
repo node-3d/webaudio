@@ -25,7 +25,7 @@ jobs:
             archflags: ''
             audio_runtime: true
           - target: windows-arm64
-            os: windows-11-arm
+            os: windows-11-vs2026-arm
             node_arch: arm64
             archflags: ''
             audio_runtime: false
