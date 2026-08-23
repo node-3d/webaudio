@@ -62,8 +62,7 @@
 		"@rslib/core": "0.23.2",
 		"oxfmt": "0.57.0",
 		"typescript": "7.0.2",
-		"clang-format-node": "3.0.7",
-		"node-gyp": "12.4.0"
+		"clang-format-node": "3.0.7"
 	},
 	"type": "module",
 	"types": "dist/index.d.ts",
