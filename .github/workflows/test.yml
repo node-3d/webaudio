@@ -1,4 +1,5 @@
 name: Test
+
 defaults:
   run:
     shell: bash
@@ -13,15 +14,51 @@ on:
 
 jobs:
   unit-tests:
-    name: Unit Tests
+    name: Native Build and Audio Tests (${{ matrix.target }})
     strategy:
-        matrix:
-          os: [ubuntu-22.04, ubuntu-22.04-arm, windows-2022, macos-26]
+      fail-fast: false
+      matrix:
+        include:
+          - target: windows-x64
+            os: windows-2022
+            node_arch: x64
+            archflags: ''
+            audio_runtime: true
+            vs_prerelease: false
+          - target: windows-arm64
+            os: windows-11-vs2026-arm
+            node_arch: arm64
+            archflags: ''
+            audio_runtime: false
+            vs_prerelease: true
+          - target: linux-x64
+            os: ubuntu-22.04
+            node_arch: x64
+            archflags: ''
+            audio_runtime: true
+            vs_prerelease: false
+          - target: linux-arm64
+            os: ubuntu-22.04-arm
+            node_arch: arm64
+            archflags: ''
+            audio_runtime: true
+            vs_prerelease: false
+          - target: darwin-x64
+            os: macos-26
+            node_arch: x64
+            archflags: '-arch x86_64'
+            audio_runtime: true
+            vs_prerelease: false
+          - target: darwin-arm64
+            os: macos-26
+            node_arch: arm64
+            archflags: '-arch arm64'
+            audio_runtime: true
+            vs_prerelease: false
 
     runs-on: ${{ matrix.os }}
 
     steps:
-
       - name: Fetch Repository
         uses: actions/checkout@v7
         with:
@@ -31,20 +68,30 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24.13.0
+          architecture: ${{ matrix.node_arch }}
           cache: 'npm'
+
+      - name: Configure MSBuild
+        if: startsWith(matrix.target, 'windows-')
+        uses: microsoft/setup-msbuild@v3
+        with:
+          msbuild-architecture: ${{ matrix.node_arch }}
+          vs-prerelease: ${{ matrix.vs_prerelease || false }}
 
       - name: Install Modules
         run: npm ci
 
       - name: Build Current Binary
+        env:
+          ARCHFLAGS: ${{ matrix.archflags }}
         run: npm run build:rebuild
 
       - name: Audio Device - Unix
-        if: matrix.os != 'windows-2022'
+        if: matrix.audio_runtime && !startsWith(matrix.target, 'windows-')
         uses: LABSN/sound-ci-helpers@v1
 
       - name: Audio Device - Windows
-        if: matrix.os == 'windows-2022'
+        if: matrix.audio_runtime && startsWith(matrix.target, 'windows-')
         shell: powershell
         run: |
           Start-Service audio*
@@ -59,4 +106,5 @@ jobs:
           C:\Scream\Install\helpers\devcon install Scream.inf *Scream
 
       - name: Run Unit Tests
+        if: matrix.audio_runtime
         run: npm run test:ci

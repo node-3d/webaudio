@@ -1,4 +1,10 @@
 name: Build Binaries
+
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
 defaults:
   run:
     shell: bash
@@ -15,12 +21,10 @@ jobs:
   create_release:
     name: Create Release
     runs-on: ubuntu-latest
-
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
 
     steps:
-
       - name: Fetch Repository
         uses: actions/checkout@v7
         with:
@@ -51,15 +55,46 @@ jobs:
           name: Release ${{ steps.package-version.outputs.version }}
 
   build:
-    name: Build
+    name: Build ${{ matrix.target }}
+    needs: create_release
     strategy:
-        matrix:
-          os: [ubuntu-22.04, ubuntu-22.04-arm, windows-2022, macos-26]
+      fail-fast: false
+      matrix:
+        include:
+          - target: windows-x64
+            os: windows-2022
+            node_arch: x64
+            archflags: ''
+            vs_prerelease: false
+          - target: windows-arm64
+            os: windows-11-vs2026-arm
+            node_arch: arm64
+            archflags: ''
+            vs_prerelease: true
+          - target: linux-x64
+            os: ubuntu-22.04
+            node_arch: x64
+            archflags: ''
+            vs_prerelease: false
+          - target: linux-arm64
+            os: ubuntu-22.04-arm
+            node_arch: arm64
+            archflags: ''
+            vs_prerelease: false
+          - target: darwin-x64
+            os: macos-26
+            node_arch: x64
+            archflags: '-arch x86_64'
+            vs_prerelease: false
+          - target: darwin-arm64
+            os: macos-26
+            node_arch: arm64
+            archflags: '-arch arm64'
+            vs_prerelease: false
 
     runs-on: ${{ matrix.os }}
 
     steps:
-
       - name: Fetch Repository
         uses: actions/checkout@v7
         with:
@@ -69,12 +104,22 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 24.13.0
+          architecture: ${{ matrix.node_arch }}
           cache: 'npm'
+
+      - name: Configure MSBuild
+        if: startsWith(matrix.target, 'windows-')
+        uses: microsoft/setup-msbuild@v3
+        with:
+          msbuild-architecture: ${{ matrix.node_arch }}
+          vs-prerelease: ${{ matrix.vs_prerelease || false }}
 
       - name: Install Modules
         run: npm ci
 
       - name: Build Current Binary
+        env:
+          ARCHFLAGS: ${{ matrix.archflags }}
         run: npm run build:rebuild
 
       - name: Get Package Version
@@ -88,7 +133,12 @@ jobs:
 
       - name: Pack Files
         id: pack-files
-        run: node -e "import('@node-3d/addon-tools').then((m) => m.actionPack())" >> $GITHUB_OUTPUT
+        run: node -e "import('@node-3d/addon-tools').then((m) => m.actionPack())" >> "$GITHUB_OUTPUT"
+
+      - name: Attest Binary Archive
+        uses: actions/attest@v4
+        with:
+          subject-path: ${{ steps.pack-files.outputs.pack }}
 
       - name: Store Binaries
         uses: softprops/action-gh-release@v3
