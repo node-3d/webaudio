@@ -55,7 +55,7 @@ for (let i = 0; i < count; i++) {
 	audio.panner.connect(context.destination);
 	// oxlint-disable-next-line no-loop-func
 	audio.play = () => {
-		if (audio.isPlaying === true) {
+		if (audio.isPlaying) {
 			console.warn('Audio is already playing.');
 			return;
 		}
@@ -89,6 +89,11 @@ const render = () => {
 
 	for (let i = 0; i < objects.length; i++) {
 		const ball = objects[i];
+
+		if (!ball) {
+			continue;
+		}
+
 		const previousHeight = ball.y;
 		const al = i * offset + time * speed;
 

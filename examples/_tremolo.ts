@@ -28,7 +28,7 @@ gain.connect(context.destination);
 
 // 30 sec
 await new Promise((res) => {
-	setTimeout(res, 30000);
+	setTimeout(res, 30_000);
 });
 
 console.log('DONE');

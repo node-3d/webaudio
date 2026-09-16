@@ -27,7 +27,7 @@ class JsAudioParam extends AudioParam {
 		return this.toString();
 	}
 
-	public toString(): string {
+	public override toString(): string {
 		return `AudioParam { ${this.value} }`;
 	}
 }

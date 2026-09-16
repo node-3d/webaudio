@@ -22,7 +22,7 @@ audioClipNode.start(0);
 
 // 20 sec
 await new Promise((res) => {
-	setTimeout(res, 20000);
+	setTimeout(res, 20_000);
 });
 
 console.log('DONE');

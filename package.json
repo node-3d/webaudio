@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "@node-3d/webaudio",
-	"version": "6.0.0",
+	"version": "6.0.1",
 	"description": "Web Audio for Node.js",
 	"license": "MIT",
 	"main": "dist/index.js",
@@ -24,8 +24,8 @@
 		"tsconfig.json"
 	],
 	"engines": {
-		"node": ">=24.13.0",
-		"npm": ">=11.6.2"
+		"node": ">=22.18.0",
+		"npm": ">=10.9.0"
 	},
 	"scripts": {
 		"postinstall": "node install.js",
@@ -56,11 +56,12 @@
 	},
 	"devDependencies": {
 		"@types/node": "24.13.2",
-		"node-addon-api": "8.9.0",
-		"oxlint": "1.72.0",
+		"node-addon-api": "8.9.2",
+		"oxlint": "1.81.0",
+		"oxlint-tsgolint": "7.0.2001",
 		"tslib": "2.8.1",
-		"@rslib/core": "0.23.2",
-		"oxfmt": "0.57.0",
+		"@rslib/core": "1.0.0",
+		"oxfmt": "0.66.0",
 		"typescript": "7.0.2",
 		"clang-format-node": "3.0.7"
 	},

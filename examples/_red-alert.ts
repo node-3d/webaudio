@@ -60,9 +60,16 @@ delaySum.gain.value = 0.2;
 const delayTimes = [0.015, 0.022, 0.035, 0.024, 0.011] as const;
 for (let i = 0; i < delayTimes.length; i++) {
 	const d = delayTimes[i];
-	delay[i].delayTime.value = d;
-	resonanceSum.connect(delay[i]);
-	delay[i].connect(delaySum);
+	if (d === undefined) {
+		continue;
+	}
+	const delayNode = delay[i];
+	if (!delayNode) {
+		continue;
+	}
+	delayNode.delayTime.value = d;
+	resonanceSum.connect(delayNode);
+	delayNode.connect(delaySum);
 }
 
 filterSum.gain.value = 0.2;
@@ -78,10 +85,17 @@ delaySum.connect(filterSum);
 const filterFrequencies = [740, 1400, 1500, 1600] as const;
 for (let i = 0; i < filterFrequencies.length; i++) {
 	const f = filterFrequencies[i];
-	filter[i].frequency.value = f;
-	filter[i].Q.value = 12;
-	delaySum.connect(filter[i]);
-	filter[i].connect(filterSum);
+	if (f === undefined) {
+		continue;
+	}
+	const filterNode = filter[i];
+	if (!filterNode) {
+		continue;
+	}
+	filterNode.frequency.value = f;
+	filterNode.Q.value = 12;
+	delaySum.connect(filterNode);
+	filterNode.connect(filterSum);
 }
 
 // filterSum -. destination

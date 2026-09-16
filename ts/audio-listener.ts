@@ -17,7 +17,7 @@ class JsAudioListener extends AudioListener {
 		return this.toString();
 	}
 
-	public toString(): string {
+	public override toString(): string {
 		return 'AudioListener {}';
 	}
 }

@@ -107,6 +107,7 @@ const baseAudioContextPrototype: Partial<TJsBaseAudioContext> &
 	},
 
 	[inspect.custom](): string {
+		// oxlint-disable-next-line typescript/no-base-to-string
 		return this.toString();
 	},
 
@@ -139,17 +140,17 @@ const baseAudioContextPrototype: Partial<TJsBaseAudioContext> &
 		return new nodes.AudioBufferSourceNode(this, opts);
 	},
 
-	createChannelMerger(opts: TAudioNodeOptions = {}) {
-		return new nodes.ChannelMergerNode(this, opts);
-	},
+	// createChannelMerger(opts: TAudioNodeOptions = {}) {
+	// 	return new nodes.ChannelMergerNode(this, opts);
+	// },
 
-	createChannelSplitter(opts: TAudioNodeOptions = {}) {
-		return new nodes.ChannelSplitterNode(this, opts);
-	},
+	// createChannelSplitter(opts: TAudioNodeOptions = {}) {
+	// 	return new nodes.ChannelSplitterNode(this, opts);
+	// },
 
-	createConstantSource(opts: TAudioNodeOptions = {}) {
-		return new nodes.ConstantSourceNode(this, opts);
-	},
+	// createConstantSource(opts: TAudioNodeOptions = {}) {
+	// 	return new nodes.ConstantSourceNode(this, opts);
+	// },
 
 	createConvolver(opts: TAudioNodeOptions = {}) {
 		return new nodes.ConvolverNode(this, opts);
@@ -159,17 +160,17 @@ const baseAudioContextPrototype: Partial<TJsBaseAudioContext> &
 		return new nodes.DelayNode(this, { maxDelayTime });
 	},
 
-	createDynamicsCompressor(opts: TAudioNodeOptions = {}) {
-		return new nodes.DynamicsCompressorNode(this, opts);
-	},
+	// createDynamicsCompressor(opts: TAudioNodeOptions = {}) {
+	// 	return new nodes.DynamicsCompressorNode(this, opts);
+	// },
 
 	createGain(opts: TAudioNodeOptions = {}) {
 		return new nodes.GainNode(this, opts);
 	},
 
-	createIIRFilter(opts: TAudioNodeOptions = {}) {
-		return new nodes.IIRFilterNode(this, opts);
-	},
+	// createIIRFilter(opts: TAudioNodeOptions = {}) {
+	// 	return new nodes.IIRFilterNode(this, opts);
+	// },
 
 	createOscillator(opts: TAudioNodeOptions = {}) {
 		return new nodes.OscillatorNode(this, opts);
@@ -179,21 +180,21 @@ const baseAudioContextPrototype: Partial<TJsBaseAudioContext> &
 		return new nodes.PannerNode(this, opts);
 	},
 
-	createPeriodicWave(opts: TAudioNodeOptions = {}) {
-		return new nodes.PeriodicWaveNode(this, opts);
-	},
+	// createPeriodicWave(opts: TAudioNodeOptions = {}) {
+	// 	return new nodes.PeriodicWaveNode(this, opts);
+	// },
 
-	createScriptProcessor(opts: TAudioNodeOptions = {}) {
-		return new nodes.ScriptProcessorNode(this, opts);
-	},
+	// createScriptProcessor(opts: TAudioNodeOptions = {}) {
+	// 	return new nodes.ScriptProcessorNode(this, opts);
+	// },
 
-	createStereoPanner(opts: TAudioNodeOptions = {}) {
-		return new nodes.StereoPannerNode(this, opts);
-	},
+	// createStereoPanner(opts: TAudioNodeOptions = {}) {
+	// 	return new nodes.StereoPannerNode(this, opts);
+	// },
 
-	createWaveShaper(opts: TAudioNodeOptions = {}) {
-		return new nodes.WaveShaperNode(this, opts);
-	},
+	// createWaveShaper(opts: TAudioNodeOptions = {}) {
+	// 	return new nodes.WaveShaperNode(this, opts);
+	// },
 };
 
 JsBaseAudioContext.prototype = baseAudioContextPrototype as TJsBaseAudioContext;

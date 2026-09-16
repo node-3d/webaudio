@@ -57,6 +57,7 @@ const audioNodePrototype: Partial<TAudioNode> &
 	},
 
 	[inspect.custom](): string {
+		// oxlint-disable-next-line typescript/no-base-to-string
 		return this.toString();
 	},
 

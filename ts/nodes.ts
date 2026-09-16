@@ -76,7 +76,7 @@ const subclassBase = (
 	SuperNode: TInheritsConstructor,
 ): TNodeConstructor => {
 	const SuperClass = native[name] as TNativeNodeConstructor;
-	inherits(SuperClass, SuperNode as typeof Object);
+	inherits(SuperClass, SuperNode);
 
 	class JsNode extends SuperClass {
 		private readonly _opts: TAudioNodeOptions;
@@ -90,7 +90,7 @@ const subclassBase = (
 			return this.toString();
 		}
 
-		public toString(): string {
+		public override toString(): string {
 			return `${name} ${JSON.stringify(this._opts, null, '\t')}`;
 		}
 	}

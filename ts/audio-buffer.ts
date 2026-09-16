@@ -11,7 +11,7 @@ class JsAudioBuffer extends AudioBuffer {
 		return this.toString();
 	}
 
-	public toString(): string {
+	public override toString(): string {
 		return 'AudioBuffer {}';
 	}
 }

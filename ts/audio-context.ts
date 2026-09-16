@@ -21,7 +21,7 @@ class JsAudioContext extends AudioContext {
 		return this.toString();
 	}
 
-	public toString(): string {
+	public override toString(): string {
 		return 'AudioContext {}';
 	}
 }
