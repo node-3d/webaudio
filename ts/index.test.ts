@@ -13,4 +13,22 @@ describe('WebAudio', () => {
 		const oscillator = context.createOscillator();
 		assert.strictEqual(typeof oscillator, 'object');
 	});
+
+	it('reports unsupported node constructors explicitly', () => {
+		const unsupportedConstructors = {
+			createChannelMerger: () => context.createChannelMerger(),
+			createChannelSplitter: () => context.createChannelSplitter(),
+			createConstantSource: () => context.createConstantSource(),
+			createDynamicsCompressor: () => context.createDynamicsCompressor(),
+			createIIRFilter: () => context.createIIRFilter(),
+			createPeriodicWave: () => context.createPeriodicWave(),
+			createScriptProcessor: () => context.createScriptProcessor(),
+			createStereoPanner: () => context.createStereoPanner(),
+			createWaveShaper: () => context.createWaveShaper(),
+		};
+
+		for (const [method, create] of Object.entries(unsupportedConstructors)) {
+			assert.throws(create, new Error(`${method} is not implemented by this audio backend`));
+		}
+	});
 });

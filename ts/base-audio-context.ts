@@ -140,17 +140,17 @@ const baseAudioContextPrototype: Partial<TJsBaseAudioContext> &
 		return new nodes.AudioBufferSourceNode(this, opts);
 	},
 
-	// createChannelMerger(opts: TAudioNodeOptions = {}) {
-	// 	return new nodes.ChannelMergerNode(this, opts);
-	// },
+	createChannelMerger() {
+		throw new Error('createChannelMerger is not implemented by this audio backend');
+	},
 
-	// createChannelSplitter(opts: TAudioNodeOptions = {}) {
-	// 	return new nodes.ChannelSplitterNode(this, opts);
-	// },
+	createChannelSplitter() {
+		throw new Error('createChannelSplitter is not implemented by this audio backend');
+	},
 
-	// createConstantSource(opts: TAudioNodeOptions = {}) {
-	// 	return new nodes.ConstantSourceNode(this, opts);
-	// },
+	createConstantSource() {
+		throw new Error('createConstantSource is not implemented by this audio backend');
+	},
 
 	createConvolver(opts: TAudioNodeOptions = {}) {
 		return new nodes.ConvolverNode(this, opts);
@@ -160,17 +160,17 @@ const baseAudioContextPrototype: Partial<TJsBaseAudioContext> &
 		return new nodes.DelayNode(this, { maxDelayTime });
 	},
 
-	// createDynamicsCompressor(opts: TAudioNodeOptions = {}) {
-	// 	return new nodes.DynamicsCompressorNode(this, opts);
-	// },
+	createDynamicsCompressor() {
+		throw new Error('createDynamicsCompressor is not implemented by this audio backend');
+	},
 
 	createGain(opts: TAudioNodeOptions = {}) {
 		return new nodes.GainNode(this, opts);
 	},
 
-	// createIIRFilter(opts: TAudioNodeOptions = {}) {
-	// 	return new nodes.IIRFilterNode(this, opts);
-	// },
+	createIIRFilter() {
+		throw new Error('createIIRFilter is not implemented by this audio backend');
+	},
 
 	createOscillator(opts: TAudioNodeOptions = {}) {
 		return new nodes.OscillatorNode(this, opts);
@@ -180,25 +180,27 @@ const baseAudioContextPrototype: Partial<TJsBaseAudioContext> &
 		return new nodes.PannerNode(this, opts);
 	},
 
-	// createPeriodicWave(opts: TAudioNodeOptions = {}) {
-	// 	return new nodes.PeriodicWaveNode(this, opts);
-	// },
+	createPeriodicWave() {
+		throw new Error('createPeriodicWave is not implemented by this audio backend');
+	},
 
-	// createScriptProcessor(opts: TAudioNodeOptions = {}) {
-	// 	return new nodes.ScriptProcessorNode(this, opts);
-	// },
+	createScriptProcessor() {
+		throw new Error('createScriptProcessor is not implemented by this audio backend');
+	},
 
-	// createStereoPanner(opts: TAudioNodeOptions = {}) {
-	// 	return new nodes.StereoPannerNode(this, opts);
-	// },
+	createStereoPanner() {
+		throw new Error('createStereoPanner is not implemented by this audio backend');
+	},
 
-	// createWaveShaper(opts: TAudioNodeOptions = {}) {
-	// 	return new nodes.WaveShaperNode(this, opts);
-	// },
+	createWaveShaper() {
+		throw new Error('createWaveShaper is not implemented by this audio backend');
+	},
 };
 
-JsBaseAudioContext.prototype = baseAudioContextPrototype as TJsBaseAudioContext;
-
 inherits(JsBaseAudioContext, BaseAudioContext);
+Object.defineProperties(
+	JsBaseAudioContext.prototype,
+	Object.getOwnPropertyDescriptors(baseAudioContextPrototype),
+);
 
 export { JsBaseAudioContext as BaseAudioContext };
