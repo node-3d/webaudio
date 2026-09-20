@@ -10,9 +10,7 @@ export type TAudioEvent = Readonly<{
 }>;
 
 /** Event listener return values are ignored, matching Node's EventEmitter behavior. */
-export type TAudioEventCallback<T extends TAudioEvent = TAudioEvent> = (
-	event: T,
-) => void;
+export type TAudioEventCallback<T extends TAudioEvent = TAudioEvent> = (event: T) => void;
 export type TAudioEventCallbackList<T extends TAudioEvent = TAudioEvent> =
 	| TAudioEventCallback<T>
 	| readonly TAudioEventCallback<T>[]
