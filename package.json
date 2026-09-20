@@ -50,8 +50,8 @@
 	},
 	"dependencies": {
 		"@node-3d/addon-tools": "~10.1.0",
-		"@node-3d/deps-labsound": "~7.0.0",
-		"@node-3d/segfault": "~4.0.0"
+		"@node-3d/deps-labsound": "~7.0.1",
+		"@node-3d/segfault": "~4.0.2"
 	},
 	"devDependencies": {
 		"@types/node": "24.13.2",
