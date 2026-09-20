@@ -49,7 +49,7 @@
 		"url": "git+https://github.com/node-3d/webaudio.git"
 	},
 	"dependencies": {
-		"@node-3d/addon-tools": "~10.0.1",
+		"@node-3d/addon-tools": "~10.1.0",
 		"@node-3d/deps-labsound": "~7.0.0",
 		"@node-3d/segfault": "~4.0.0"
 	},
