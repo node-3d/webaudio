@@ -40,7 +40,7 @@ jobs:
             archflags: ''
             audio_runtime: true
           - target: darwin-x64
-            os: macos-26
+            os: macos-26-intel
             node_arch: x64
             archflags: '-arch x86_64'
             audio_runtime: true
