@@ -26,7 +26,7 @@ ChannelSplitterNode::ChannelSplitterNode(const Napi::CallbackInfo &info)
 	reset(context, std::make_shared<lab::ChannelSplitterNode>());
 
 	Napi::Value argv[] = { static_cast<Napi::Value>(context),
-		                   static_cast<Napi::Value>(JS_NUM(reinterpret_cast<size_t>(&_impl))) };
+	                       static_cast<Napi::Value>(JS_NUM(reinterpret_cast<size_t>(&_impl))) };
 	super(info, 2, argv);
 }
 
