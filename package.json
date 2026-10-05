@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "@node-3d/webaudio",
-	"version": "6.0.1",
+	"version": "6.0.2",
 	"description": "Web Audio for Node.js",
 	"license": "MIT",
 	"main": "dist/index.js",
@@ -49,9 +49,9 @@
 		"url": "git+https://github.com/node-3d/webaudio.git"
 	},
 	"dependencies": {
-		"@node-3d/addon-tools": "~10.1.0",
-		"@node-3d/deps-labsound": "~7.0.1",
-		"@node-3d/segfault": "~4.0.2"
+		"@node-3d/addon-tools": "~10.2.0",
+		"@node-3d/deps-labsound": "~7.0.2",
+		"@node-3d/segfault": "~4.0.3"
 	},
 	"devDependencies": {
 		"@types/node": "24.19.0",
