@@ -130,9 +130,9 @@ BusPtr AudioBuffer::snapshotBus() {
 		if (!_channelData[i].IsEmpty()) {
 			Napi::Float32Array view = _channelData[i].Value();
 			float *storage = _impl->channel(static_cast<int>(i))->mutableData();
-			if (view.ArrayBuffer().IsDetached())
+			if (view.ArrayBuffer().IsDetached()) {
 				std::memset(storage, 0, static_cast<size_t>(_impl->length()) * sizeof(float));
-			else {
+			} else {
 				std::memcpy(storage, view.Data(), static_cast<size_t>(_impl->length()) * sizeof(float));
 				view.ArrayBuffer().Detach();
 			}
