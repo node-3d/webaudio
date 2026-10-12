@@ -77,6 +77,17 @@ JS_IMPLEMENT_METHOD(AudioBufferSourceNode, start) {
 	LET_DOUBLE_ARG(0, when);
 
 	lab::SampledAudioNode *node = static_cast<lab::SampledAudioNode *>(_impl.get());
+	if (!_buffer.IsEmpty()) {
+		AudioBuffer *buffer = AudioBuffer::unwrap(_buffer.Value());
+		if (!buffer || !buffer->getBus()) {
+			Napi::TypeError::New(env, "buffer is not a live AudioBuffer").ThrowAsJavaScriptException();
+			RET_UNDEFINED;
+		}
+		BusPtr snapshot = buffer->snapshotBus();
+		lab::AudioContext *ctx = _contextVal->getCtx().get();
+		lab::ContextRenderLock lock(ctx, "AudioBufferSourceNode::start");
+		node->setBus(lock, snapshot);
+	}
 
 	if (_isLooping) {
 		if (_loopEnd > _loopStart) {
@@ -121,6 +132,12 @@ JS_IMPLEMENT_GETTER(AudioBufferSourceNode, buffer) {
 JS_IMPLEMENT_SETTER(AudioBufferSourceNode, buffer) {
 	THIS_CHECK;
 	SETTER_OBJ_ARG;
+	AudioBuffer *audioBuffer = AudioBuffer::unwrap(v);
+	if (!audioBuffer || !audioBuffer->getBus()) {
+		Napi::TypeError::New(env, "buffer must be a live AudioBuffer").ThrowAsJavaScriptException();
+		RET_UNDEFINED;
+	}
+	BusPtr bus = audioBuffer->getBus();
 	_buffer.Reset(v, 1);
 
 	Napi::Object context = _context.Value();
@@ -129,9 +146,6 @@ JS_IMPLEMENT_SETTER(AudioBufferSourceNode, buffer) {
 	lab::AudioContext *ctx = audioContext->getCtx().get();
 
 	lab::ContextRenderLock r(ctx, "AudioBufferSourceNode::bufferSetter");
-
-	AudioBuffer *audioBuffer = AudioBuffer::unwrap(v);
-	BusPtr bus = audioBuffer->getBus();
 
 	lab::SampledAudioNode *node = static_cast<lab::SampledAudioNode *>(_impl.get());
 	node->setBus(r, bus);

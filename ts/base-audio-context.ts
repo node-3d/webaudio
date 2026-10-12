@@ -11,6 +11,7 @@ import { native } from './native.ts';
 import type {
 	TAnalyserNode,
 	TAudioBuffer,
+	TAudioBufferOptions,
 	TAudioBufferSourceNode,
 	TAudioEventCallback,
 	TAudioEventCallbackList,
@@ -55,7 +56,7 @@ export type TJsBaseAudioContext = TBaseAudioContext & {
 	) => void;
 	createAnalyser: (opts?: TAudioNodeOptions) => TAnalyserNode;
 	createBiquadFilter: (opts?: TAudioNodeOptions) => TBiquadFilterNode;
-	createBuffer: (opts?: TAudioNodeOptions) => TAudioBuffer;
+	createBuffer: (numberOfChannels: number, length: number, sampleRate: number) => TAudioBuffer;
 	createBufferSource: (opts?: TAudioNodeOptions) => TAudioBufferSourceNode;
 	createConvolver: (opts?: TAudioNodeOptions) => TConvolverNode;
 	createDelay: (maxDelayTime?: number) => TDelayNode;
@@ -132,8 +133,12 @@ const baseAudioContextPrototype: Partial<TJsBaseAudioContext> &
 		return new nodes.BiquadFilterNode(this, opts);
 	},
 
-	createBuffer(opts: TAudioNodeOptions = {}) {
-		return new AudioBuffer(this, opts);
+	createBuffer(numberOfChannels: number, length: number, sampleRate: number) {
+		if (arguments.length < 3) {
+			throw new TypeError('createBuffer requires numberOfChannels, length, and sampleRate');
+		}
+		const options: TAudioBufferOptions = { numberOfChannels, length, sampleRate };
+		return new AudioBuffer(options);
 	},
 
 	createBufferSource(opts: TAudioNodeOptions = {}) {

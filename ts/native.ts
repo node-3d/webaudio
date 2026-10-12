@@ -35,11 +35,10 @@ export type TNativeEs5Constructor<
 	TInstance extends object,
 > = TNativeConstructor<TArgs, TInstance> & ((...args: TArgs) => TInstance);
 
-export type TAudioBufferData = ArrayLike<number> & object;
 export type TAudioBufferOptions = Readonly<{
-	length?: number;
+	length: number;
 	numberOfChannels?: number;
-	sampleRate?: number;
+	sampleRate: number;
 }>;
 export type TAudioContextOptions = Readonly<{
 	sampleRate?: number;
@@ -93,16 +92,12 @@ export type TAudioBuffer = TAudioObject & {
 	readonly numberOfChannels: number;
 	readonly sampleRate: number;
 	copyFromChannel: (
-		destination: TAudioBufferData,
+		destination: Float32Array,
 		channelNumber: number,
-		startInChannel: number,
+		bufferOffset?: number,
 	) => void;
-	copyToChannel: (
-		source: TAudioBufferData,
-		channelNumber: number,
-		startInChannel: number,
-	) => void;
-	getChannelData: (channelIndex: number) => void;
+	copyToChannel: (source: Float32Array, channelNumber: number, bufferOffset?: number) => void;
+	getChannelData: (channelIndex: number) => Float32Array;
 };
 
 export type TAudioListener = TAudioObject & {
@@ -232,7 +227,7 @@ export type TNative = Readonly<{
 		TAnalyserNode
 	>;
 	AudioBuffer: TNativeEs5Constructor<
-		[context: TBaseAudioContext, source?: TNativeExternal | TAudioBufferOptions],
+		[options: TAudioBufferOptions] | [context: TBaseAudioContext, source: TNativeExternal],
 		TAudioBuffer
 	>;
 	AudioBufferSourceNode: TNativeEs5Constructor<

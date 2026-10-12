@@ -24,8 +24,22 @@ Import any class you like from the module and then follow the
 import { AudioContext } from '@node-3d/webaudio'; // usually this is enough
 ```
 
+Create a silent PCM buffer using the Web Audio arguments, then write samples:
+
+```ts
+const context = new AudioContext();
+const buffer = context.createBuffer(1, context.sampleRate, context.sampleRate);
+const samples = buffer.getChannelData(0);
+samples[0] = 0.5;
+```
+
+`new AudioBuffer({ length, sampleRate, numberOfChannels? })` is also supported.
+`createBuffer()` requires all three arguments. Invalid buffer dimensions and
+sample rates throw `NotSupportedError`; an invalid channel index throws
+`IndexSizeError`.
+
 **This module is WORK IN PROGRESS.**
-Some features are missing for good.
+Unimplemented or noncompliant Web Audio behavior remains work to fix.
 
 Currently exported classes:
 

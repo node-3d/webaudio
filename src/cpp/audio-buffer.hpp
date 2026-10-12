@@ -13,12 +13,10 @@ class AudioBuffer : public CommonBus {
 	~AudioBuffer();
 
 	void _destroy();
+	BusPtr snapshotBus();
 
   private:
-	int _length;
-	double _duration;
-	float _sampleRate;
-	uint32_t _numberOfChannels;
+	std::vector<Napi::Reference<Napi::Float32Array>> _channelData;
 
 	JS_DECLARE_METHOD(AudioBuffer, destroy);
 	JS_DECLARE_METHOD(AudioBuffer, getChannelData);

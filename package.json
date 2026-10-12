@@ -1,7 +1,7 @@
 {
 	"author": "Luis Blanco <luisblanco1337@gmail.com>",
 	"name": "@node-3d/webaudio",
-	"version": "6.0.2",
+	"version": "6.0.3",
 	"description": "Web Audio for Node.js",
 	"license": "MIT",
 	"main": "dist/index.js",

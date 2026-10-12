@@ -50,6 +50,12 @@ JS_IMPLEMENT_GETTER(ConvolverNode, buffer) {
 JS_IMPLEMENT_SETTER(ConvolverNode, buffer) {
 	THIS_CHECK;
 	SETTER_OBJ_ARG;
+	AudioBuffer *audioBuffer = AudioBuffer::unwrap(v);
+	if (!audioBuffer || !audioBuffer->getBus()) {
+		Napi::TypeError::New(env, "buffer must be a live AudioBuffer").ThrowAsJavaScriptException();
+		RET_UNDEFINED;
+	}
+	BusPtr bus = audioBuffer->snapshotBus();
 	if (!v && v == _buffer.Value()) {
 		RET_UNDEFINED;
 	}
@@ -59,9 +65,6 @@ JS_IMPLEMENT_SETTER(ConvolverNode, buffer) {
 	AudioContext *audioContext = AudioContext::unwrap(context);
 
 	lab::AudioContext *ctx = audioContext->getCtx().get();
-
-	AudioBuffer *audioBuffer = AudioBuffer::unwrap(v);
-	BusPtr bus = audioBuffer->getBus();
 
 	lab::ConvolverNode *node = static_cast<lab::ConvolverNode *>(_impl.get());
 	node->setImpulse(bus);
